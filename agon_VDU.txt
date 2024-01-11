@@ -1,0 +1,66 @@
+VDU code summary
+Number	Meaning
+VDU 0	Null - it does nothing.
+VDU 1	Send the next character to the printer ONLY.
+VDU 2	Enable the printer.
+VDU 3	Disable the printer.
+VDU 4	Write text at the text cursor position.
+VDU 5	Write text at the graphics cursor position.
+VDU 6	Enable output to the screen.
+VDU 7	Bell - make a short 'beep'.
+VDU 8	Move the text cursor backwards one character.
+VDU 9	Move the text cursor forwards one character.
+VDU 10	Move the text cursor down one line.
+VDU 11	Move the text cursor up one line.
+VDU 12	Clear the text area - identical to CLS.
+VDU 13	Move the text cursor to the start of the current line.
+VDU 14	Enable the auto-paging mode.
+VDU 15	Disable the auto-paging mode.
+VDU 16	Clear the graphics area - identical to CLG.
+VDU 17	Define a text colour - identical to COLOUR.
+VDU 18	Define a graphics colour - identical to GCOL.
+VDU 19	Modify the colour palette.
+VDU 20	Restore the default logical colours.
+VDU 21	Disable output to the screen.
+VDU 22	Select the screen mode - identical to MODE.
+VDU 23	Create user-defined characters and screen modes, etc.
+VDU 24	Define a graphics viewport.
+VDU 25	Identical to PLOT.
+VDU 26	Restore the default text and graphics viewports.
+VDU 27	Send the next character to the screen.
+VDU 28	Define a text viewport.
+VDU 29	Set the graphics origin - identical to ORIGIN.
+VDU 30	Home the text cursor to the top left of the screen.
+VDU 31	Move the text cursor - identical to TAB(x,y).
+VDU 127	Backspace and delete.
+
+VDU 23, 1: Cursor display
+VDU 23, 1, 0: Disable the text cursor
+VDU 23, 1, 1: Enable the text cursor
+
+VDU 23, 27: Bitmaps, sprites, and mouse cursor
+VDU 23, 27 is reserved for the bitmap, sprite, and mouse cursor functionality
+
+Bitmaps
+VDU 23, 27, 0, n: Select bitmap n (equating to buffer ID numbered 64000+n)
+VDU 23, 27, 1, w; h; b1, b2 ... bn: Load colour bitmap data into current bitmap
+VDU 23, 27, 2, w; h; col1; col2;: Create a solid colour rectangular bitmap (col1 and col2 form a 32 bit number in RGBA colour range.)
+VDU 23, 27, 3, x; y;: Draw current bitmap on screen at pixel position x, y (a valid bitmap must be selected first)
+VDU 23, 27, &20, bufferId;: Select bitmap using a 16-bit buffer ID
+VDU 23, 27, &21, w; h; format: Create bitmap from selected buffer
+Sprites
+VDU 23, 27, 4, n: Select sprite n
+VDU 23, 27, 5: Clear frames in current sprite
+VDU 23, 27, 6, n: Add bitmap n as a frame to current sprite (where bitmap’s buffer ID is 64000+n)
+VDU 23, 27, 7, n: Activate n sprites
+VDU 23, 27, 8: Select next frame of current sprite
+VDU 23, 27, 9: Select previous frame of current sprite
+VDU 23, 27, 10, n: Select the nth frame of current sprite
+VDU 23, 27, 11: Show current sprite
+VDU 23, 27, 12: Hide current sprite
+VDU 23, 27, 13, x; y;: Move current sprite to pixel position x, y
+VDU 23, 27, 14, x; y;: Move current sprite by x, y pixels
+VDU 23, 27, 15: Update the sprites in the GPU
+VDU 23, 27, 16: Reset bitmaps and sprites and clear all data
+VDU 23, 27, 17: Reset sprites (only) and clear all data
+VDU 23, 27, &26, n;: Add bitmap n as a frame to current sprite using a 16-bit buffer ID
